@@ -14,6 +14,6 @@ build:
   - nix-channel --update
   - nix-shell '<home-manager>' -A install
   - rm ${NIX_HOME}/home.nix
-  - ln -s ${NIX_HOME/home.nix $(pwd)/home.nix
+  - ln -s ${NIX_HOME}/home.nix $(pwd)/home.nix
   script:
   - home-manager build
