@@ -1,41 +1,36 @@
----
-
-stages:
-- check
-- build
-
 check:nixfmt:
   stage: check
   image: nixos/nix
   script:
-  - nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt --check '{}' \;
-
+  - nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt
+    --check '{}' \;
+build:nixos:
+  variables:
+    SUT: nixos
+  extends: .build
 .build:
   stage: build
   image: nixos/nix
+  script:
+  - home-manager build
   before_script:
-  - export NIX_HOME="${HOME}/.config/nixpkgs"
+  - export NIX_HOME="${HOME}/.config/nixpkgs
   - nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
-  - nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+  - nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz
+    home-manager
   - nix-channel --update
   - nix-shell '<home-manager>' -A install
   - rm ${NIX_HOME}/home.nix
   - ln -s $(pwd)/home.nix ${NIX_HOME}/home.nix
   - ln -s $(pwd)/hosts/${SUT}.nix $(pwd)/hosts/default.nix
   - ln -s ${SECRETS_NIX} $(pwd)/secrets.nix
-  script:
-  - home-manager build
-
-build:nixos:
-  variables:
-    SUT: nixos
-  extends: .build
-
+stages:
+- check
+- build
 build:delly-nixos:
   variables:
     SUT: delly-nixos
   extends: .build
-
 build:tux-nixos:
   variables:
     SUT: tux-nixos

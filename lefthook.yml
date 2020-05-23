@@ -4,3 +4,5 @@ pre-commit:
     formatting:
       glob: "*.nix"
       run: nixfmt -c {all_files}
+    gitlab-yml:
+      run: dhall-to-yaml < _gitlab/gitlab-ci.dhall | diff .gitlab-ci.yml -
