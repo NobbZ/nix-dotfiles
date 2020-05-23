@@ -16,6 +16,6 @@ build:
   - nix-shell '<home-manager>' -A install
   - rm ${NIX_HOME}/home.nix
   - ln -s $(pwd)/home.nix ${NIX_HOME}/home.nix
-  - ln -s $(pwd)/hosts/default.nix $(pwd)/hosts/${SUT}.nix
+  - ln -s $(pwd)/hosts/${SUT}.nix $(pwd)/hosts/default.nix
   script:
   - home-manager build
