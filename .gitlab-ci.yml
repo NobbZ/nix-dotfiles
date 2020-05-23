@@ -10,8 +10,8 @@ build:
     SUT: nixos
   before_script:
   - export NIX_HOME="${HOME}/.config/nixpkgs"
-  - nix-channel --add https://nixos.org/channels/nixos-20.03 nixpkgs
-  - nix-channel --add https://github.com/rycee/home-manager/archive/release-20.03.tar.gz home-manager
+  - nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
+  - nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
   - nix-channel --update
   - nix-shell '<home-manager>' -A install
   - rm ${NIX_HOME}/home.nix
