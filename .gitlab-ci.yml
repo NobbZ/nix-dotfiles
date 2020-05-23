@@ -18,7 +18,17 @@ stages:
   script:
   - home-manager build
 
-build:
+build:nixos:
   variables:
     SUT: nixos
+  extends: .build
+
+build:delly-nixos:
+  variables:
+    SUT: delly-nixos
+  extends: .build
+
+build:tux-nixos:
+  variables:
+    SUT: tux-nixos
   extends: .build
