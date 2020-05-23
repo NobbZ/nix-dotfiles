@@ -13,7 +13,6 @@ build:
   - nix-channel --add https://github.com/rycee/home-manager/archive/release-20.03.tar.gz home-manager
   - nix-channel --update
   - nix-shell '<home-manager>' -A install
-  - printenv HOME
-  - printenv NIX_HOME
+  - rm ${NIX_HOME}/home.nix
   script:
   - home-manager build
