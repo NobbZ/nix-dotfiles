@@ -1,7 +1,14 @@
 ---
 
 stages:
+- check
 - build
+
+check:nixfmt:
+  stage: check
+  image: nixos/nix
+  script:
+  - nix run nixpkgs.{findutils,nixfmt} -c find -name '*.nix' -type f -exec nixfmt '{}' \;
 
 .build:
   stage: build
