@@ -35,3 +35,10 @@ build:tux-nixos:
   variables:
     SUT: tux-nixos
   extends: .build
+check:dhall:
+  stage: check
+  image: nixos/nix
+  script:
+  - dhall-to-yaml < $(pwd)/_gitlab/gitlab-ci.dhall | diff $(pwd)/.gitlab-ci.yml -
+  before_script:
+  - nix-env -iA nixpkgs.dhall-json nixpkgs.diffutils

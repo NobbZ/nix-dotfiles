@@ -6,6 +6,17 @@ let nixfmt = {
   script = [ "nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt --check '{}' \\;" ]
 }
 
+let dhall = {
+  stage = "check",
+  image = "nixos/nix",
+  before_script = [
+    "nix-env -iA nixpkgs.dhall-json nixpkgs.diffutils"
+  ],
+  script = [
+    "dhall-to-yaml < $(pwd)/_gitlab/gitlab-ci.dhall | diff $(pwd)/.gitlab-ci.yml -"
+  ]
+}
+
 let buildTemplate = {
   stage = "build",
   image = "nixos/nix",
@@ -30,7 +41,9 @@ let buildFor = \(name : Text) -> {
 
 in {
   stages = stages,
+
   `check:nixfmt` = nixfmt,
+  `check:dhall` = dhall,
 
   `.build` = buildTemplate,
 
