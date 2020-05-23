@@ -8,7 +8,7 @@ check:nixfmt:
   stage: check
   image: nixos/nix
   script:
-  - nix run nixpkgs.{findutils,nixfmt} -c find -name '*.nix' -type f -exec nixfmt --check '{}' \;
+  - nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt --check '{}' \;
 
 .build:
   stage: build
