@@ -3,11 +3,9 @@
 stages:
 - build
 
-build:
+.build:
   stage: build
   image: nixos/nix
-  variables:
-    SUT: nixos
   before_script:
   - export NIX_HOME="${HOME}/.config/nixpkgs"
   - nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
@@ -19,3 +17,8 @@ build:
   - ln -s $(pwd)/hosts/${SUT}.nix $(pwd)/hosts/default.nix
   script:
   - home-manager build
+
+build:
+  variables:
+    SUT: nixos
+  extends: .build
