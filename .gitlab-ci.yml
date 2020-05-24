@@ -1,44 +1,42 @@
-check:nixfmt:
-  stage: check
-  image: nixos/nix
-  script:
-  - nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt
-    --check '{}' \;
-build:nixos:
-  variables:
-    SUT: nixos
-  extends: .build
-.build:
-  stage: build
-  image: nixos/nix
-  script:
-  - home-manager build
+".build":
   before_script:
-  - export NIX_HOME="${HOME}/.config/nixpkgs
-  - nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
-  - nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz
-    home-manager
-  - nix-channel --update
-  - nix-shell '<home-manager>' -A install
-  - rm ${NIX_HOME}/home.nix
-  - ln -s $(pwd)/home.nix ${NIX_HOME}/home.nix
-  - ln -s $(pwd)/hosts/${SUT}.nix $(pwd)/hosts/default.nix
-  - ln -s ${SECRETS_NIX} $(pwd)/secrets.nix
-stages:
-- check
-- build
+    - "export NIX_HOME=\"${HOME}/.config/nixpkgs"
+    - nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
+    - nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+    - nix-channel --update
+    - "nix-shell '<home-manager>' -A install"
+    - "rm ${NIX_HOME}/home.nix"
+    - "ln -s $(pwd)/home.nix ${NIX_HOME}/home.nix"
+    - "ln -s $(pwd)/hosts/${SUT}.nix $(pwd)/hosts/default.nix"
+    - "ln -s ${SECRETS_NIX} $(pwd)/secrets.nix"
+  image: nixos/nix
+  script:
+    - home-manager build
+  stage: build
 build:delly-nixos:
+  extends: ".build"
   variables:
     SUT: delly-nixos
-  extends: .build
+build:nixos:
+  extends: ".build"
+  variables:
+    SUT: nixos
 build:tux-nixos:
+  extends: ".build"
   variables:
     SUT: tux-nixos
-  extends: .build
 check:dhall:
-  stage: check
+  before_script:
+    - nix-env -iA nixpkgs.dhall-json nixpkgs.diffutils
   image: nixos/nix
   script:
-  - dhall-to-yaml < $(pwd)/_gitlab/gitlab-ci.dhall | diff $(pwd)/.gitlab-ci.yml -
-  before_script:
-  - nix-env -iA nixpkgs.dhall-json nixpkgs.diffutils
+    - "dhall-to-yaml < $(pwd)/_gitlab/gitlab-ci.dhall | diff $(pwd)/.gitlab-ci.yml -"
+  stage: check
+check:nixfmt:
+  image: nixos/nix
+  script:
+    - "nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt --check '{}' \\;"
+  stage: check
+stages:
+  - check
+  - build
