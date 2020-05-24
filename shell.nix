@@ -4,5 +4,5 @@ let
     config = { };
   };
 
-  inherit (pkgs) niv lefthook dhall-json;
-in pkgs.mkShell { buildInputs = [ niv lefthook dhall-json ]; }
+  inherit (pkgs) niv lefthook dhall dhall-json;
+in pkgs.mkShell { buildInputs = [ niv lefthook dhall dhall-json ]; }
