@@ -21,7 +21,7 @@ let buildTemplate = {
   stage = "build",
   image = "nixos/nix",
   before_script = [
-    "export NIX_HOME=\"\${HOME}/.config/nixpkgs",
+    "export NIX_HOME=\"\${HOME}/.config/nixpkgs\"",
     "nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs",
     "nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager",
     "nix-channel --update",
