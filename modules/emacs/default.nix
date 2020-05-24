@@ -137,6 +137,7 @@ in {
       [
         ep.company-go
         ep.cyberpunk-theme
+        ep.dhall-mode
         ep.docker-compose-mode
         ep.dockerfile-mode
         ep.go-mode
