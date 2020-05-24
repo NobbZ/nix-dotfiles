@@ -13,16 +13,29 @@
   script:
     - home-manager build
   stage: build
+  variables: {}
 build:delly-nixos:
+  before_script: []
   extends: ".build"
+  image: nixos/nix
+  script: []
+  stage: check
   variables:
     SUT: delly-nixos
 build:nixos:
+  before_script: []
   extends: ".build"
+  image: nixos/nix
+  script: []
+  stage: check
   variables:
     SUT: nixos
 build:tux-nixos:
+  before_script: []
   extends: ".build"
+  image: nixos/nix
+  script: []
+  stage: check
   variables:
     SUT: tux-nixos
 check:dhall:
@@ -32,11 +45,14 @@ check:dhall:
   script:
     - "dhall-to-yaml < $(pwd)/_gitlab/gitlab-ci.dhall | diff $(pwd)/.gitlab-ci.yml -"
   stage: check
+  variables: {}
 check:nixfmt:
+  before_script: []
   image: nixos/nix
   script:
     - "nix run nixpkgs.findutils nixpkgs.nixfmt -c find -name '*.nix' -type f -exec nixfmt --check '{}' \\;"
   stage: check
+  variables: {}
 stages:
   - check
   - build
