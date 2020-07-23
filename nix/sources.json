@@ -13,15 +13,15 @@
         "version": "0.5.0"
     },
     "emacs-overlay": {
-        "branch": "master",
+        "branch": "nativecomp-pkgs",
         "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
         "homepage": "",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "80df4c219966c8cd179e5f1b2089a5605f75cadb",
-        "sha256": "0qf6pv2cjx0lv6lkk0l9amgrcnwwxl97byrqh3h6vd4nvjfrmih1",
+        "rev": "b74dbf73ecf7cc420740c87af4c2d113d1fdd58e",
+        "sha256": "17i44ia43iiba3nsg0y914wwjsyl9fw963ss7vyyay6qx726a24c",
         "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/80df4c219966c8cd179e5f1b2089a5605f75cadb.tar.gz",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/b74dbf73ecf7cc420740c87af4c2d113d1fdd58e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "erlang-ls": {
@@ -98,15 +98,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
-        "branch": "nixos-unstable",
+        "branch": "emacs-native-comp",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
         "homepage": "https://github.com/NixOS/nixpkgs",
-        "owner": "nixos",
-        "repo": "nixpkgs-channels",
-        "rev": "a5cc7d3197705f933d88e97c0c61849219ce76c1",
-        "sha256": "0b7y2nv5nj776zh9jwir8fq1qrgcqpaap05qxlxp9qfngw12k6ji",
+        "owner": "adisbladis",
+        "repo": "nixpkgs",
+        "rev": "8e0f6a5c36b7143533f68f8ba1b3ee1c4d958e0a",
+        "sha256": "0hfwbbxb4cn15iz6iz6b62cg31271jc2crl4a1aspfrvmfrk8hp3",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/a5cc7d3197705f933d88e97c0c61849219ce76c1.tar.gz",
+        "url": "https://github.com/adisbladis/nixpkgs/archive/8e0f6a5c36b7143533f68f8ba1b3ee1c4d958e0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ocaml-lsp": {
