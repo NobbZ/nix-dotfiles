@@ -17,6 +17,7 @@ rec {
   keyleds = self.callPackage (import ./keyleds) { };
   ocaml-lsp = self.callPackage ./ocaml-ls { };
   rofi-unicode = self.callPackage ./rofi-unicode.nix { };
+  xarchon = self.callPackage ./xarchon { };
 
   keepass =
     self.callPackage (keepasspkgs.outPath + "/pkgs/applications/misc/keepass")
