@@ -72,6 +72,8 @@
         julia_15 = pkgs.julia_15;
         emacsGit = pkgs.emacsGit;
 
+        et-app = pkgs.callPackage ./packages/et-app.nix { };
+
         flux2 = inputs.cloud-native.packages.x86_64-linux.flux2;
 
         build-config = pkgs.writeShellScript "build-config.sh" ''
