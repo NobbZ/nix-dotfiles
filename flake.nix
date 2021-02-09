@@ -71,6 +71,7 @@
         keepass = pkgs.keepass;
         emacsGit = pkgs.emacsGit;
         cryptomator = inputs.cryptomator.legacyPackages.x86_64-linux.cryptomator;
+        haven = pkgs.callPackage ./packages/haven { };
 
         flux2 = inputs.cloud-native.packages.x86_64-linux.flux2;
 
