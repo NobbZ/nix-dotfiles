@@ -1,4 +1,4 @@
-{ stdenv, jdk, ant, fetchgit, fetchurl, ... }:
+{ stdenv, jdk, ant, javaPackages, fetchgit, fetchurl, ... }:
 let
   rev = "c254d17c9b05363eff99c9e9baa529b2be779f4b";
 
@@ -25,6 +25,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ jdk ant ];
 
+  buildInputs = [
+    javaPackages.jogl_2_3_2
+  ];
+
   preConfigure = ''
     mkdir build
     cp ${builtin-res} build/builtin-res.jar
@@ -32,6 +36,20 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = "ant";
+
+  installPhase = ''
+    mkdir -p $out/{lib,bin}
+
+    install build/*.jar $out/lib/
+
+    cat <<EOF > $out/bin/haven
+    #!/usr/bin/env bash
+    jogl=${javaPackages.jogl_2_3_2}/share/java
+    export CLASSPATH=$jogl/gluegen-rt-natives-linux-amd64.jar:jogl-all-natives-linux-amd64.jar:$CLASSPATH
+    ${jdk}/bin/java -jar $out/lib/hafen.jar
+    EOF
+    chmod +x $out/bin/haven
+  '';
 
   JAVA_TOOL_OPTIONS = "-Dfile.encoding=UTF8";
 }
