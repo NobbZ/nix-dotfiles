@@ -74,6 +74,7 @@
         keepass = pkgs.keepass;
         emacsGit = pkgs.emacsPkgtGcc;
         cryptomator = inputs.cryptomator.legacyPackages.x86_64-linux.cryptomator;
+        ms_edge = pkgs.callPackage ./packages/ms_edge { };
 
         flux2 = inputs.cloud-native.packages.x86_64-linux.flux2;
 
