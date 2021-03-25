@@ -69,6 +69,7 @@
         keepass = pkgs.keepass;
         emacsGit = pkgs.emacsPgtkGcc;
         cryptomator = inputs.cryptomator.legacyPackages.x86_64-linux.cryptomator;
+        haven = pkgs.callPackage ./packages/haven { };
 
         update-config = pkgs.callPackage ./scripts/update-config { };
         build-config = pkgs.callPackage ./scripts/build-config { };
